@@ -1,0 +1,22 @@
+fn invert_the_case(s: String) -> String {
+    s.chars()
+        .map(|c| {
+            if c.is_ascii_alphabetic() {
+                if c.is_uppercase() {
+                    c.to_ascii_lowercase()
+                } else {
+                    c.to_ascii_uppercase()
+                }
+            } else {
+                c // leave non-alphabetic characters unchanged
+            }
+        })
+        .collect()
+}
+
+// Test cases
+fn main() {
+    assert_eq!(invert_the_case("Hello".to_string()), "hELLO".to_string());
+    assert_eq!(invert_the_case("Привет".to_string()), "пРИВЕТ".to_string());
+    println!("All tests passed!");
+}
