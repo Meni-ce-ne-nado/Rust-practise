@@ -1,0 +1,19 @@
+fn is_prime(n: &u32) -> bool {
+    if *n < 2 {
+        return false; // 0 і 1 не прості
+    }
+    for i in 2..=(*n as f64).sqrt() as u32 {
+        if n % i == 0 {
+            return false; // число ділиться на i, не є простим
+        }
+    }
+    true // число просте
+}
+
+fn main() {
+    let test_cases = vec![0, 1, 2, 3, 4, 5, 100, 10007];
+    
+    for &n in &test_cases {
+        println!("Is {} prime? {}", n, is_prime(&n));
+    }
+}
