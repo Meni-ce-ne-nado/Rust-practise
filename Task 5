@@ -1,0 +1,19 @@
+const WIDTH: usize = 30;  // Ширина конверта
+const HEIGHT: usize = 15; // Висота конверта
+
+fn main() {
+    for i in 0..HEIGHT {
+        for j in 0..WIDTH {
+            if i == 0 || i == HEIGHT - 1 { // Верхня та нижня частини
+                print!("*");
+            } else if j == 0 || j == WIDTH - 1 { // Бокові частини
+                print!("*");
+            } else if j == i || j == WIDTH - i - 1 { // Лінії
+                print!("*");
+            } else {
+                print!(" ");
+            }
+        }
+        println!(); // Перехід на новий рядок після кожного рядка
+    }
+}
