@@ -1,0 +1,48 @@
+fn gen_shipments(n: usize) -> Vec<u32> {
+    let mut shipments = vec![0; n];
+    let total_weight: u32 = 100 * n as u32; // Наприклад, сума вантажу повинна бути кратною n
+    let target_weight = total_weight / n as u32;
+
+    // Генеруємо вантажі так, щоб сума була рівномірно поділена
+    for i in 0..n {
+        shipments[i] = target_weight;
+    }
+
+    shipments
+}
+
+fn count_permutation(shipments: &Vec<u32>) -> Option<usize> {
+    let total_weight: u32 = shipments.iter().sum();
+    let num_ships = shipments.len();
+
+    // Перевіряємо чи можна поділити вантаж рівномірно
+    if total_weight % num_ships as u32 != 0 {
+        return None; // Рівномірний розподіл неможливий
+    }
+
+    let target_weight = total_weight / num_ships as u32;
+    let mut moves = 0;
+    let mut diff_sum = 0;
+
+    // Обчислюємо мінімальну кількість переміщень
+    for &shipment in shipments {
+        diff_sum += (shipment as i32 - target_weight as i32).abs();
+    }
+
+    // Кількість переміщень буде половиною сумарної різниці
+    Some(diff_sum as usize / 2)
+}
+
+fn main() {
+    let num_ships = 4;
+
+    // Генеруємо вантажі для кораблів
+    let shipments = gen_shipments(num_ships);
+    println!("Shipments: {:?}", shipments);
+
+    // Підраховуємо мінімальну кількість переміщень
+    match count_permutation(&shipments) {
+        Some(moves) => println!("Minimum number of moves: {}", moves),
+        None => println!("It is not possible to distribute the cargo evenly."),
+    }
+}
